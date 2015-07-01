@@ -1,16 +1,19 @@
 __author__ = 'sophiaosintsev'
 
-recipe_manager = {"Cake": {"Ingredients": ["1 cup sugar",
-                                           "4 eggs",
-                                           "1 tsp. baking powder"],
-                           "Directions": "Cake directions"},
-                  "Cookies": {"Ingredients": ["1 cup butter",
-                                              "1 cup sugar",
-                                              "2 cups flour"],
-                              "Directions": "1. Preheat oven and grease pan. "
-                                            "2. Combine all ingredients. "
-                                            "3. Bake for 20 minutes. "}}
+import saving_recipes
 
+# recipe_manager = {"Cake": {"Ingredients": ["1 cup sugar",
+#                                            "4 eggs",
+#                                            "1 tsp. baking powder"],
+#                            "Directions": "Cake directions"},
+#                   "Cookies": {"Ingredients": ["1 cup butter",
+#                                               "1 cup sugar",
+#                                               "2 cups flour"],
+#                               "Directions": "1. Preheat oven and grease pan. "
+#                                             "2. Combine all ingredients. "
+#                                             "3. Bake for 20 minutes. "}}
+
+recipe_manager = saving_recipes.get_from_file()
 
 # Function to search for recipes
 def search():
@@ -30,6 +33,7 @@ def add():
         directions = raw_input("\nPlease list the directions for this recipe >> \n")
         recipe_manager[title] = {"Ingredients": ingredients, "Directions": directions}
         print "\nThe new recipe has been added!\n"
+    saving_recipes.write_to_file(recipe_manager)
 
 # Function to edit recipes
 def edit():
@@ -66,6 +70,7 @@ def edit():
 
     else:
         print "\nThat's not a choice! Please try again.\n"
+    saving_recipes.write_to_file(recipe_manager)
 
 # Function to delete recipes
 def delete():
@@ -82,6 +87,7 @@ def delete():
         else:
             if response == "no":
                 return
+    saving_recipes.write_to_file(recipe_manager)
 
 # use this function to print pretty in the format that I want
 def print_recipe(title, recipe_dict):
@@ -92,8 +98,7 @@ def print_recipe(title, recipe_dict):
         print '\t' + "   " + ingredient
     print
     print "Directions"
-    print recipe_dict["Directions"]
-
+    print '\t' + "   " + recipe_dict["Directions"]
 
 while True:
     choice = raw_input("""
@@ -113,6 +118,7 @@ while True:
     elif choice == '4':
         delete()
     elif choice == '5':
-        done = True
+        saving_recipes.write_to_file(recipe_manager)
+        break
     else:
         print "\nThat is not a valid choice!\n"
