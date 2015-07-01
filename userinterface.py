@@ -1,9 +1,16 @@
 __author__ = 'sophiaosintsev'
 
-from pprint import pprint
+recipe_manager = {"Cake": {"Ingredients": ["1 cup sugar",
+                                           "4 eggs",
+                                           "1 tsp. baking powder"],
+                           "Directions": "Cake directions"},
+                  "Cookies": {"Ingredients": ["1 cup butter",
+                                              "1 cup sugar",
+                                              "2 cups flour"],
+                              "Directions": "1. Preheat oven and grease pan. "
+                                            "2. Combine all ingredients. "
+                                            "3. Bake for 20 minutes. "}}
 
-recipe_manager = {"Cake": {"Ingredients": "Cake ingredients", "Directions": "Cake directions"},
-                  "Cookies": {"Ingredients": "These are my ingredient", "Directions": "These are my directions"}}
 
 # Function to search for recipes
 def search():
@@ -11,12 +18,7 @@ def search():
     if title not in recipe_manager:
         print "\nThis recipe does not exist!\n"
         return
-    pprint(recipe_manager[title])
-    #TODO make display pretty
-    # for x in recipe_manager:
-    #     pprint(x)
-    #     for y in recipe_manager[x]:
-    #         print (y + "\n" + recipe_manager[x][y])
+    print_recipe(title, recipe_manager[title])
 
 # Function to add recipes
 def add():
@@ -24,11 +26,10 @@ def add():
     if title in recipe_manager:
         print "\nThis recipe already exists!\n"
     else:
-        # TODO make sure ingredients is a list not a string
-        ingredients = raw_input("\nPlease list the ingredients for this recipe >> \n")
+        ingredients = raw_input("\nPlease list the ingredients for this recipe separated by comma >> \n").split(", ")
         directions = raw_input("\nPlease list the directions for this recipe >> \n")
         recipe_manager[title] = {"Ingredients": ingredients, "Directions": directions}
-    print "\nThe new recipe has been added!\n"
+        print "\nThe new recipe has been added!\n"
 
 # Function to edit recipes
 def edit():
@@ -39,7 +40,7 @@ def edit():
     else:
         ingredients = recipe_manager[title]["Ingredients"]
         directions = recipe_manager[title]["Directions"]
-        pprint(recipe_manager[title])
+        print_recipe(title, recipe_manager[title])
     subchoice = raw_input("""
         \nWhat would you like to change?
         \t1. Recipe name
@@ -54,7 +55,7 @@ def edit():
         print "\nThe name of this recipe has been changed!\n"
 
     elif subchoice == '2':
-        new = raw_input("\nWhat is the new list of ingredient? >> \n")
+        new = raw_input("\nWhat is the new list of ingredient? >> \n").split(", ")
         recipe_manager[title.capitalize()] = {"Ingredients": new, "Directions": directions}
         print "\nThe ingredients in this recipe have been changed!\n"
 
@@ -73,7 +74,7 @@ def delete():
         print "\nThis recipe does not exist!\n"
         return
     else:
-        pprint(recipe_manager[title])
+        print_recipe(title, recipe_manager[title])
         response = raw_input("\nAre you sure you want to delete this recipe? (yes/no) >> \n")
         if response == "yes":
             del recipe_manager[title]
@@ -81,6 +82,18 @@ def delete():
         else:
             if response == "no":
                 return
+
+# use this function to print pretty in the format that I want
+def print_recipe(title, recipe_dict):
+    print title
+    print
+    print "Ingredients"
+    for ingredient in recipe_dict["Ingredients"]:
+        print '\t' + "   " + ingredient
+    print
+    print "Directions"
+    print recipe_dict["Directions"]
+
 
 while True:
     choice = raw_input("""
