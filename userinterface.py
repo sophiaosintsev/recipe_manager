@@ -17,7 +17,7 @@ recipe_manager = saving_recipes.get_from_file()
 
 # Function to search for recipes
 def search():
-    title = raw_input("\nWhat is the name of the recipe you want to search for? >> \n").capitalize()
+    title = raw_input("\nWhat is the name of the recipe you want to search for? >> \n").title()
     if title not in recipe_manager:
         print "\nThis recipe does not exist!\n"
         return
@@ -25,19 +25,20 @@ def search():
 
 # Function to add recipes
 def add():
-    title = raw_input("\nWhat is the name of the recipe you want to add? >> \n").capitalize()
+    title = raw_input("\nWhat is the name of the recipe you want to add? >> \n").title()
     if title in recipe_manager:
         print "\nThis recipe already exists!\n"
     else:
-        ingredients = raw_input("\nPlease list the ingredients for this recipe separated by comma >> \n").split(", ")
-        directions = raw_input("\nPlease list the directions for this recipe >> \n")
+        ingredients = raw_input("\nPlease list the ingredients for this recipe separated by comma(,) >> \n").split(", ")
+        directions = raw_input("\nPlease list the directions for this recipe, ending each set of directions "
+                               "with a period(.) >> \n").split(". ")
         recipe_manager[title] = {"Ingredients": ingredients, "Directions": directions}
         print "\nThe new recipe has been added!\n"
     saving_recipes.write_to_file(recipe_manager)
 
 # Function to edit recipes
 def edit():
-    title = raw_input("\nWhat is the title of the recipe you want to edit? >> \n").capitalize()
+    title = raw_input("\nWhat is the title of the recipe you want to edit? >> \n").title()
     if title not in recipe_manager:
         print "\nThis recipe does not exist!\n"
         return
@@ -53,18 +54,19 @@ def edit():
         Please enter a choice by number. >> \n""")
 
     if subchoice == '1':
-        new = raw_input("\nWhat is the new name of the recipe? >> \n").capitalize()
+        new = raw_input("\nWhat is the new name of the recipe? >> \n").title()
         recipe_manager[new] = {"Ingredients": ingredients, "Directions": directions}
         del recipe_manager[title]
         print "\nThe name of this recipe has been changed!\n"
 
     elif subchoice == '2':
-        new = raw_input("\nWhat is the new list of ingredient? >> \n").split(", ")
+        new = raw_input("\nWhat is the new list of ingredient? Please separate ingredients by comma >> \n").split(", ")
         recipe_manager[title.capitalize()] = {"Ingredients": new, "Directions": directions}
         print "\nThe ingredients in this recipe have been changed!\n"
 
     elif subchoice == '3':
-        new = raw_input("What are the new directions for this recipe? >> ")
+        new = raw_input("\nWhat are the new directions for this recipe? "
+                        "Please end each set of directions with a period(.) >> \n").split(". ")
         recipe_manager[title.capitalize()] = {"Ingredients": ingredients, "Directions": new}
         print "\nThe directions for this recipe have been changed!\n"
 
@@ -74,7 +76,7 @@ def edit():
 
 # Function to delete recipes
 def delete():
-    title = raw_input("\nWhat is the name of the recipe you want to delete? >> \n").capitalize()
+    title = raw_input("\nWhat is the name of the recipe you want to delete? >> \n").title()
     if title not in recipe_manager:
         print "\nThis recipe does not exist!\n"
         return
@@ -98,7 +100,9 @@ def print_recipe(title, recipe_dict):
         print '\t' + "   " + ingredient
     print
     print "Directions"
-    print '\t' + "   " + recipe_dict["Directions"]
+    for direction in recipe_dict["Directions"]:
+        print '\t' + "   " + direction
+
 
 while True:
     choice = raw_input("""
