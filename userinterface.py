@@ -1,5 +1,5 @@
 __author__ = 'sophiaosintsev'
-
+from termcolor import colored
 import saving_recipes
 
 # recipe_manager = {"Cake": {"Ingredients": ["1 cup sugar",
@@ -19,7 +19,7 @@ recipe_manager = saving_recipes.get_from_file()
 def search():
     title = raw_input("\nWhat is the name of the recipe you want to search for? >> \n").title()
     if title not in recipe_manager:
-        print "\nThis recipe does not exist!\n"
+        print(colored("\nThis recipe does not exist!\n", "red"))
         return
     print_recipe(title, recipe_manager[title])
 
@@ -27,7 +27,7 @@ def search():
 def add():
     title = raw_input("\nWhat is the name of the recipe you want to add? >> \n").title()
     if title in recipe_manager:
-        print "\nThis recipe already exists!\n"
+        print(colored("\nThis recipe already exists!\n", "red"))
     else:
         ingredients = raw_input("\nPlease list the ingredients for this recipe separated by comma(,) >> \n").split(", ")
         directions = raw_input("\nPlease list the directions for this recipe, ending each set of directions "
@@ -40,7 +40,7 @@ def add():
 def edit():
     title = raw_input("\nWhat is the title of the recipe you want to edit? >> \n").title()
     if title not in recipe_manager:
-        print "\nThis recipe does not exist!\n"
+        print(colored("\nThis recipe does not exist!\n", "red"))
         return
     else:
         ingredients = recipe_manager[title]["Ingredients"]
@@ -71,14 +71,14 @@ def edit():
         print "\nThe directions for this recipe have been changed!\n"
 
     else:
-        print "\nThat's not a choice! Please try again.\n"
+        print(colored("\nThat's not a choice! Please try again.\n", "red"))
     saving_recipes.write_to_file(recipe_manager)
 
 # Function to delete recipes
 def delete():
     title = raw_input("\nWhat is the name of the recipe you want to delete? >> \n").title()
     if title not in recipe_manager:
-        print "\nThis recipe does not exist!\n"
+        print(colored("\nThis recipe does not exist!\n", "red"))
         return
     else:
         print_recipe(title, recipe_manager[title])
@@ -93,13 +93,13 @@ def delete():
 
 # use this function to print pretty in the format that I want
 def print_recipe(title, recipe_dict):
-    print title
+    print "\n" + "\n" + "\n" + "\n" '\033[1m' + (colored(title, "blue"))
     print
-    print "Ingredients"
+    print '\033[1m' + (colored("Ingredients", "blue"))
     for ingredient in recipe_dict["Ingredients"]:
         print '\t' + "   " + ingredient
     print
-    print "Directions"
+    print '\033[1m' + (colored("Directions", "blue"))
     for direction in recipe_dict["Directions"]:
         print '\t' + "   " + direction
 
@@ -125,4 +125,4 @@ while True:
         saving_recipes.write_to_file(recipe_manager)
         break
     else:
-        print "\nThat is not a valid choice!\n"
+        print(colored("\nThat is not a valid choice!\n", "red"))
