@@ -1,44 +1,28 @@
-{% extends 'main.html' %}
-
-{% block header %}Register{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <div>
-        First Name:
-
-        {{ form.first_name.errors }}
-        {{ form.first_name }}
-<br>
-        Last Name:
-
-        {{ form.last_name.errors }}
-        {{ form.last_name }}
-<br>
-
-        Username:
-
-        {{ form.username.errors }}
-        {{ form.username }}
-<br>
-        Email:
-
-        {{ form.email.errors }}
-        {{ form.email }}
-<br>
-        Password:
-
-        {{ form.password1.errors }}
-        {{ form.password1 }}
-<br>
-        Verify Password:
-
-        {{ form.password2.errors }}
-        {{ form.password2 }}
-
-
-    <input type="submit" value="Submit">
+<div class="wrap">
+    <form action="" method="post">
+        <fieldset>
+            <legend><h3>Sign Up</h3></legend>
+            {% csrf_token %}
+                <input type="text" class="form" id="id_first_name" maxlength="30" name="first_name" placeholder="Your First Name" />
+{#                    {{ form.first_name.errors }}#}
+                <input type="text" class="form" id="id_last_name" maxlength="30" name="last_name" placeholder="Your Last Name"/>
+{#                    {{ form.last_name.errors }}#}
+                <input type="text" class="form" id="id_username" maxlength="30" name="username" placeholder="Username"/>
+{#                    {{ form.username.errors }}#}
+                <input type="text" class="form" id="id_email" maxlength="254" name="email" placeholder="Email"/>
+{#                    {{ form.email.errors }}#}
+                <input type="password" class="form" id="id_password" name="password1" placeholder="Password"/>
+{#                    {{ form.password1.errors }}#}
+                <input type="password" class="form" id="id_password" name="password1" placeholder="Confirm Password"/>
+{#                    {{ form.password2.errors }}#}
+        <input type="submit" id="button" value="Submit">
+        </fieldset>
+    </form>
 </div>
-</form>
 {% endblock %}
+
+
+

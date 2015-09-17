@@ -1,46 +1,58 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    <h3>Hello {{ user.username }}</h3>
-    <a href="{% url 'logout' %}">Logout</a><br />
-{% endif %}
 
+<div class="allrecipewrap">
 <form method="get">
-<input id="searchbox" name="q" type="text" placeholder="Search Recipes">
-<input type="submit" value="Submit">
-
-{% if found_entries %}
-    <p>Here are all recipes containing the word(s) "{{ query_string }}"</p>
-    <div>
-        {% for recipe in found_entries %}
-            {% if user.is_authenticated %}
-            <ul><a href="{% url 'full_recipe' recipe.id %}">{{ recipe.title }}</a></ul>
-            {% endif %}
-            <a href="{% url 'all_recipes' %}">Back to all Recipes</a>
-        {% endfor %}
-    </div>
-{% endif %}
-
-{% if query_string and not found_entries %}
-    <p>No results found.</p>
-    <br>
-    <a href="{% url 'all_recipes' %}">Back to all Recipes</a>
-
-{% endif %}
+    <fieldset class="allrecipes">
+        <legend class="allrecipes"><h3>Recipes</h3></legend>
+         {% for recipe in recipes %}
+        <div class="content">
+            <div class="recipe">
+                <div class="image">
+                    <a href="{% url 'full_recipe' recipe.id %}"><img src="{{ recipe.photo.url }}"></a>
+                    <div class="name">
+                        <h4>{{ recipe.title }}</h4>
+                    </div>
+                </div>
+                <ul class="media">
+                    <li>{{ recipe.get_category_display }}</li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{#        {% csrf_token %}#}
+{#            <input class="form" name="q" type="text" placeholder="Search Recipes">#}
+{#            <input type="submit" id="button" value="Search">#}
+{#        {% if found_entries %}#}
+{#            <p>Here are all recipes containing the word(s) "{{ query_string }}"</p>#}
+{#            {% for recipe in found_entries %}#}
+{#                {% if user.is_authenticated %}#}
+{#                    <p class="links"><a href="{% url 'full_recipe' recipe.id %}">{{ recipe.title }}</a></p>#}
+{#                {% endif %}#}
+{#                <p class="links"><a href="{% url 'all_recipes' %}">Back to all Recipes</a></p>#}
+{#            {% endfor %}#}
+{#        {% endif %}#}
+{#        {% if query_string and not found_entries %}#}
+{#            <p>No results found.</p>#}
+{#            <br>#}
+{#            <p class="links"><a href="{% url 'all_recipes' %}">Back to all Recipes</a></p>#}
+{#        {% endif %}#}
+{#    <br>#}
+{#    <p class="links">#}
+{#        <br>#}
+{#        <a href="{% url 'add_recipe' %}">Add a new recipe</a>#}
+{#    </p>#}
+    </fieldset>
 </form>
+</div>
+{##}
 
-{% for recipe in recipes %}
-    {% if user.is_authenticated %}
-    <div class="all_recipes_list">
-        <a href="{% url 'full_recipe' recipe.id %}">{{ recipe.title }}</a>
-    {% endif %}
-    </div>
-{% endfor %}
-{% if user.is_authenticated %}
-    <div class="add-recipe">
-        <a href="{% url 'add_recipe' %}">Add a new recipe</a>
-    {% endif %}
-    </div>
+{#{% endfor %}#}
+{#{% if user.is_authenticated %}#}
+{#    <div class="add-recipe">#}
+{#        <a href="{% url 'add_recipe' %}">Add a new recipe</a>#}
+{#    {% endif %}#}
+{#    </div>#}
 
 {% endblock %}

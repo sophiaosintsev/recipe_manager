@@ -1,15 +1,47 @@
-{% extends 'main.html' %}
-
-{% block header %}
-{{ button_name }} a Recipe
-{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
 {% if user.is_authenticated %}
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="{{ button_name }}" />
-</form>
+<div class="wrap">
+    <form method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend><h3>{{ button_name }} a Recipe</h3></legend>
+            {% csrf_token %}
+            <input type="text" class="form" id="id_title" maxlength="50" name="title" placeholder="Recipe Title"/>
+                {{ form.title.errors }}
+            <select id="id_category" name="category" class="category">
+                <option value="APP" selected="selected">Appetizer</option>
+                <option value="BRK">Breakfast &amp; Brunch</option>
+                <option value="DES">Dessert</option>
+                <option value="SLD">Salad</option>
+                <option value="SOP">Soup</option>
+                <option value="BRD">Bread</option>
+                <option value="MND">Main Dish</option>
+                <option value="SDD">Side Dish</option>
+                <option value="MTP">Meat &amp; Poultry</option>
+                <option value="SFD">Seafood</option>
+                <option value="DRK">Drink</option>
+                <option value="SDW">Sandwich</option>
+            </select>
+        <textarea cols="40" class="form" id="id_ingredients" name="ingredients" rows="100"
+                  placeholder="Ingredients - 1 ingredient per line"></textarea>
+
+        <textarea cols="40" class="form" id="id_directions" name="directions" rows="100"
+                  placeholder="Directions - 1 set of directions per line"></textarea>
+{#                <input type="text" id="form" name="category" placeholder="Category"/>#}
+
+{#                <input type="text" id="form" name="ingredients" placeholder="Ingredients"/>#}
+
+{#                <input type="text" id="form" name="directions" placeholder="Directions"/>#}
+{#                <input type="password" id="form" name="photo" placeholder="Recipe Photo"/>#}
+           <input id="id_photo" class="link" name="photo" type="file">
+            <p><img src="{{ recipe.photo.url }}" alt={{ recipe.title }}></p>
+
+
+        <input type="submit" id="button" value="{{ button_name }} Recipe">
+        </fieldset>
+    </form>
+</div>
 {% endif %}
 {% endblock %}
+

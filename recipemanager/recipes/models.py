@@ -32,7 +32,12 @@ class Recipe(models.Model):
     )
     directions = models.TextField(
         blank=False,
-        help_text='One direction per line'
+        help_text='Number each set of directions'
+    )
+    photo = models.ImageField(
+        upload_to='images',
+        default='static/default_256.png',
+        null=True, blank=True,
     )
 
     def __unicode__(self):

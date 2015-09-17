@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from recipes import views as recipes_views
 from accounts import views as accounts_views
@@ -39,5 +40,7 @@ urlpatterns = [
         url(r'^edit/(?P<recipe_id>[0-9]+)/$', recipes_views.edit_recipe, name='edit_recipe'),
         url(r'^all-recipes/$', recipes_views.all_recipes, name='all_recipes'),
         url(r'^(?P<recipe_id>[0-9]+)/$', recipes_views.full_recipe, name='full_recipe'),
+
     ])),
 ]
+urlpatterns += staticfiles_urlpatterns()

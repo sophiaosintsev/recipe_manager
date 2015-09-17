@@ -1,10 +1,11 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 
 {% block header %}
 {{ this_user.username }}
 {% endblock %}
 
 {% block content %}
+
     <p>Username: <em>{{ this_user.username }}</em></p>
     <p>First Name: <em>{{ this_user.first_name }}</em></p>
     <p>Last Name: <em>{{ this_user.last_name }}</em></p>

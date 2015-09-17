@@ -1,28 +1,29 @@
-{% extends 'main.html' %}
-
-{% block header %}{{ recipe.title }}{% endblock %}
-
+{% extends 'base.html' %}
 {% block content %}
+<div class="wrap">
+    <fieldset>
+        <legend><h3>{{ recipe.title }}</h3></legend>
+        <p class="photo">
+            <img src="{{ recipe.photo.url }}" width="400" height="200" alt={{ recipe.title }}>
+        </p>
+            {{ recipe.get_category_display }}
 
-   {{ recipe.title }}
-<br>
-   {{ recipe.get_category_display }}
-<br>
-    {{ recipe.ingredients }}
-<br>
-    {{ recipe.directions }}
-<br>
-    {% if user.is_authenticated %}
+    <h2>Ingredients</h2>
+            {{ recipe.ingredients }}
+
+    <br>
+    <h2>Directions</h2>
+            {{ recipe.directions }}
+        {% if Recipe.User == request.User %}
     <form action="{% url 'delete_recipe' recipe.id %}" method="post">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+    <input type="submit" id="button" value="Delete">
     </form>
-    {% endif %}
-<br>
-    {% if user.is_authenticated %}
-    <a href="{% url 'edit_recipe' recipe.id %}">Edit this recipe</a>
-    {% endif %}
-<br>
-    <a href="{% url 'all_recipes' %}">Back to all Recipes</a>
-<br>
+    <p class="links"><a href="{% url 'edit_recipe' recipe.id %}">Edit this recipe</a></p>
+        {% endif %}
+    <p class="links">
+        <a href="{% url 'all_recipes' %}">Back to all Recipes</a>
+    </p>
+    </fieldset>
+</div>
 {% endblock %}

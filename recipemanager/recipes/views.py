@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import *
 from django.contrib.auth import authenticate, login, logout
-from .forms import AddRecipeForm
+from .forms import AddRecipeForm, SearchForm
 from .models import Recipe
 
 
@@ -33,9 +33,11 @@ def homepage(request):
 @login_required
 def add_recipe(request):
     if request.method == 'POST':
-        form = AddRecipeForm(request.POST)
+        form = AddRecipeForm(request.POST, request.FILES)
         if form.is_valid():
+            # recipe = Recipe(photo=request.FILES['photo'])
             recipe = form.save()
+            # print request.FILES.keys()
             return HttpResponseRedirect(reverse('full_recipe', args=[recipe.id]))
 
     else:
@@ -50,12 +52,14 @@ def add_recipe(request):
         }
     )
 
+
 @login_required
 def edit_recipe(request, recipe_id):
+    # can_edit = Recipe.User == request.User
     recipe_entry = get_object_or_404(Recipe, id=recipe_id)
 
     if request.method == 'POST':
-        form = AddRecipeForm(request.POST, instance=recipe_entry)
+        form = AddRecipeForm(request.POST, request.FILES, instance=recipe_entry)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('full_recipe', args=[recipe_id]))
@@ -152,6 +156,7 @@ def get_query(query_string, search_fields):
         else:
             query = query & or_query
     return query
+
 
 def login_user(request):
     logout(request)

@@ -1,9 +1,14 @@
-{% extends 'main.html' %}
-
-{% block header %}<div class="header"><a href="{% url 'homepage' %}">Home</a></div>{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-
-<p><a href="{% url 'login' %}">Log in again</a></p>
+<div class="wrap">
+    <fieldset>
+        <legend><h3>Signed Out</h3></legend>
+        <p class="links"><a href="{% url 'homepage' %}">Return Home</a></p>
+    <form action="{% url 'login' %}">
+        <input type="submit" id="button" value="Login Again">
+   </form>
+    </fieldset>
+</div>
 
 {% endblock %}

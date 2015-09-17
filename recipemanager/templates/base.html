@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/styling.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+{#    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">#}
+{#    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">#}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="outer">
+{% block header %}
+    <header id="logged">
+        {% if user.is_authenticated %}
+            <li id="user">Hello {{ user.username }}</li>
+        {% endif %}
+    </header>
+    <div id='menu'>
+        <ul>
+            <li id="home" class="active"><a href="{% url 'homepage' %}">Home</a></li>
+            <li id="all"><a href="{% url 'all_recipes' %}">All Recipes</a></li>
+            <li id="add"><a href="{% url 'add_recipe' %}">Add a New Recipe</a></li>
+            <li id="shop"><a href="{% url 'add_recipe' %}">Shopping List</a></li>
+        {% if user.is_authenticated %}
+            <li id="logout"><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li id="register"><a href="{% url 'register' %}">Register</a></li>
+            <li id="login"><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+        <form method="get">
+                {% csrf_token %}
+            <input class="search" name="q" type="text" placeholder="Search Recipes">
+            <input type="submit" id="searchbutton" value="Search">
+        {% if found_entries %}
+            {% for recipe in found_entries %}
+                {% if user.is_authenticated %}
+                    <p class="links"><a href="{% url 'full_recipe' recipe.id %}">{{ recipe.title }}</a></p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if query_string and not found_entries %}
+            <p>No results found.</p>
+        {% endif %}
+        </form>
+        </ul>
+    </div>
+{% endblock %}
+
+    {% block content %}{% endblock %}
+
+</div>
+
+<script>
+$('#menu ul li').click(function()
+{
+    $(this).siblings('li').removeClass('active');
+    $(this).addClass('active');
+});
+</script>
+</body>
+</html>

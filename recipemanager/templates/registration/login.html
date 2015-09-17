@@ -1,20 +1,25 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Login to view your recipes</h1>
-
-<form id="login_form" method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" />
-    <br />
-    Password: <input type="password" name="password" />
-    <br />
-
-    <input type="submit" value="submit" />
-</form>
-    <a href="{% url 'password_reset' %}">Forgot Password?</a>
-    <a href="{% url 'register' %}">New User?</a>
+<div class="wrap">
+    <form id="login_form" method="post" action="{% url 'login' %}">
+        <fieldset>
+            <legend><h3>Login</h3></legend>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <input type="text" class="form" id="id_username" maxlength="30" name="username" placeholder="Username"/>
+                    {{ form.username.errors }}
+                <input type="password" class="form" id="id_password" name="password" placeholder="Password"/>
+                    {{ form.password.errors }}
+        <input type="submit" id="button" value="Enter">
+    <p class="password">
+        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        <br>
+        <a href="{% url 'register' %}">New User? Register Here</a>
+    </p>
+        </fieldset>
+    </form>
+</div>
 {% endblock %}
-
 
