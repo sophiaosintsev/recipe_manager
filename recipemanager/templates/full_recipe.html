@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="wrap">
-    <fieldset>
-        <legend><h3>{{ recipe.title }}</h3></legend>
+<div class="allrecipewrap">
+    <fieldset class="allrecipes">
+        <legend class="allrecipes"><h3>{{ recipe.title }}</h3></legend>
         <p class="photo">
-            <img src="{{ recipe.photo.url }}" width="400" height="200" alt={{ recipe.title }}>
+            <img src="{{ recipe.photo.url }}" width="400" alt={{ recipe.title }}>
         </p>
             {{ recipe.get_category_display }}
 
     <h2>Ingredients</h2>
-            {{ recipe.ingredients }}
+            {{ ingredients | safe }}
 
     <br>
     <h2>Directions</h2>
             {{ recipe.directions }}
-        {% if Recipe.User == request.User %}
+{% if recipe.user == request.user %}
     <form action="{% url 'delete_recipe' recipe.id %}" method="post">
         {% csrf_token %}
     <input type="submit" id="button" value="Delete">
     </form>
     <p class="links"><a href="{% url 'edit_recipe' recipe.id %}">Edit this recipe</a></p>
-        {% endif %}
+{% endif %}
     <p class="links">
-        <a href="{% url 'all_recipes' %}">Back to all Recipes</a>
+        <a href="{% url 'recipes' %}">Back to all Recipes</a>
     </p>
     </fieldset>
 </div>

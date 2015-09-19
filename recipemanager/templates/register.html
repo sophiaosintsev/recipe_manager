@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="wrap">
-    <form action="" method="post">
+    <form method="post">
         <fieldset>
             <legend><h3>Sign Up</h3></legend>
             {% csrf_token %}
@@ -16,9 +16,9 @@
 {#                    {{ form.email.errors }}#}
                 <input type="password" class="form" id="id_password" name="password1" placeholder="Password"/>
 {#                    {{ form.password1.errors }}#}
-                <input type="password" class="form" id="id_password" name="password1" placeholder="Confirm Password"/>
-{#                    {{ form.password2.errors }}#}
-        <input type="submit" id="button" value="Submit">
+                <input type="password" class="form" id="id_password" name="password2" placeholder="Confirm Password"/>
+                    {{ form.password2.errors }}
+        <input type="submit" id="button" value="Register">
         </fieldset>
     </form>
 </div>

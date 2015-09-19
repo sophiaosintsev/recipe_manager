@@ -19,14 +19,8 @@ def register(request):
 
         if form.is_valid():
             user = form.save()
-            user.username = form.cleaned_data['username']
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
             user.save()
-
-            password = str(form.cleaned_data['password1'])
-            login(request, user)
-
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('recipes'))
 
     else:
         form = UserForm()
@@ -66,5 +60,5 @@ def user_login(request):
 def user_logout(request):
     logout(request)
 
-    return HttpResponseRedirect(reverse('homepage'))
+    return HttpResponseRedirect(reverse('recipes'))
 

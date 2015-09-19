@@ -36,8 +36,8 @@ class Recipe(models.Model):
     )
     photo = models.ImageField(
         upload_to='images',
-        default='static/default_256.png',
-        null=True, blank=True,
+        default='images/default_256.png',
+        null=False, blank=True,
     )
 
     def __unicode__(self):

@@ -10,7 +10,7 @@ from .forms import AddRecipeForm, SearchForm
 from .models import Recipe
 
 
-def homepage(request):
+def base(request):
     query_string = ''
     found_entries = None
 
@@ -23,12 +23,12 @@ def homepage(request):
         found_entries = Recipe.objects.filter(entry_query)
 
         return render_to_response(
-            'homepage.html',
+            'recipes.html',
             {'query_string': query_string, 'found_entries': found_entries},
             context_instance=RequestContext(request)
         )
 
-    return render_to_response('homepage.html', context_instance=RequestContext(request))
+    return render_to_response('recipes.html', context_instance=RequestContext(request))
 
 @login_required
 def add_recipe(request):
@@ -130,6 +130,7 @@ def full_recipe(request, recipe_id):
         'full_recipe.html',
         context={
             'recipe': recipe,
+            'ingredients': recipe.ingredients.replace('\n', '<br>')
         }
     )
 
@@ -169,5 +170,5 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/main/')
+                return HttpResponseRedirect('/recipes/')
     return render_to_response('login.html', context_instance=RequestContext(request))

@@ -10,7 +10,10 @@
         <div class="content">
             <div class="recipe">
                 <div class="image">
-                    <a href="{% url 'full_recipe' recipe.id %}"><img src="{{ recipe.photo.url }}"></a>
+                    <a href="{% url 'full_recipe' recipe.id %}">
+                        {% if recipe.photo %}
+                        <img src="{{ recipe.photo.url }}"></a>
+                    {% endif %}
                     <div class="name">
                         <h4>{{ recipe.title }}</h4>
                     </div>
