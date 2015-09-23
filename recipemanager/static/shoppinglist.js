@@ -79,9 +79,10 @@ $(document).ready(function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
+
             }
         };
-        xhr.open("POST", "/save-shoppinglist/", true);
+        xhr.open("POST", "/get-shoppinglist/", true);
 
         xhr.setRequestHeader("Content-Type", 'application/json');
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
@@ -91,6 +92,7 @@ $(document).ready(function() {
 
         document.getElementById("addItem").addEventListener("click", function(){
         });
+
     });
 
     $(document).on('click', 'li', function () {
@@ -106,4 +108,20 @@ $(document).ready(function() {
         $('#categories').remove();
         $('#controls').fadeOut();
     });
+
+
+    var xhr = new XMLHttpRequest();
+       xhr.onreadystatechange = function() {
+           if (xhr.readyState == 4 && xhr.status == 200){
+               alert(xhr.responseText);
+
+           }
+       };
+    xhr.open("GET", "/get-shoppinglist/", true);
+
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.send(null);
+
+
 });

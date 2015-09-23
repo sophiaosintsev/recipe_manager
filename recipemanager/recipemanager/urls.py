@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^login/$', accounts_views.user_login, name='login'),
     url(r'^register/$', accounts_views.register, name='register'),
     url(r'^shoppinglist/$', shoppinglist_views.shoppinglist, name='shoppinglist'),
-    url(r'^save-shoppinglist/$', shoppinglist_views.save_shoppinglist, name='save_shoppinglist'),
+    url(r'^get-shoppinglist/$', shoppinglist_views.get_shoppinglist, name='get_shoppinglist'),
     url(r'^recipes/', include([
         url(r'^home$', recipes_views.base, name='homepage'),
         url(r'^(?P<recipe_id>[0-9]+)/delete/$', recipes_views.delete_recipe, name='delete_recipe'),
