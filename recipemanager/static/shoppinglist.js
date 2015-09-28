@@ -50,7 +50,7 @@ $(document).ready(function() {
         var listItem = $("#" + category + "-list");
         console.log(listItem);
         if (listItem) {
-            listItem.append("<div id='list'><li class='" + category + "'> " + productName + "</li></div>");
+            listItem.append("<div id='items'><li class='" + category + "'> " + productName + "</li></div>");
         }
         if (listItem != undefined) {
             $("#categories").prepend(listItem.parent());
@@ -104,7 +104,7 @@ $(document).ready(function() {
     });
 
     $('button#clearAllItems').on('click', function () {
-        $('div li').remove();
+        $('#items li, #categories').remove();
         $('#categories').remove();
         $('#controls').fadeOut();
     });
@@ -112,10 +112,21 @@ $(document).ready(function() {
 
     var xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function() {
-           if (xhr.readyState == 4 && xhr.status == 200){
-               alert(xhr.responseText);
+           if (xhr.readyState == 4 && xhr.status == 200) {
+               //alert(xhr.responseText);
+               var temp = JSON.parse(xhr.responseText);
 
-           }
+
+
+
+
+                   //if (listItem != undefined) {
+                   //    $("#categories").prepend(listItem.parent());
+                   //    $(listItem.parent()).show();
+                   //}
+       //            //
+       //        });
+           };
        };
     xhr.open("GET", "/get-shoppinglist/", true);
 

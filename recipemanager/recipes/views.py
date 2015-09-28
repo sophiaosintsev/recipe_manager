@@ -43,19 +43,32 @@ def add_recipe(request):
     else:
         form = AddRecipeForm()
 
+    query_string = ''
+    found_entries = None
+
+    if ('q' in request.GET) and request.GET['q'].strip():
+
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['title', 'ingredients',])
+
+        found_entries = Recipe.objects.filter(entry_query)
+
     return render(
         request,
         'add_recipe.html',
         context={
             'form': form,
             'button_name': 'Add',
-        }
+            'query_string': query_string,
+            'found_entries': found_entries},
+            context_instance=RequestContext(request)
     )
 
 
 @login_required
 def edit_recipe(request, recipe_id):
-    # can_edit = Recipe.User == request.User
+    can_edit = Recipe.user == request.user
     recipe_entry = get_object_or_404(Recipe, id=recipe_id)
 
     if request.method == 'POST':
@@ -106,12 +119,12 @@ def all_recipes(request):
         entry_query = get_query(query_string, ['title', 'ingredients',])
 
         found_entries = Recipe.objects.filter(entry_query)
-
-        return render_to_response(
-            'all_recipes.html',
-            {'query_string': query_string, 'found_entries': found_entries},
-            context_instance=RequestContext(request)
-        )
+        #
+        # return render_to_response(
+        #     'all_recipes.html',
+        #     {'query_string': query_string, 'found_entries': found_entries},
+        #     context_instance=RequestContext(request)
+        # )
 
     recipes = Recipe.objects.all()
     return render(
@@ -119,19 +132,34 @@ def all_recipes(request):
         'all_recipes.html',
         context={
             'recipes': recipes,
-        }
+            'query_string': query_string,
+            'found_entries': found_entries},
+            context_instance=RequestContext(request)
     )
 
 @login_required
 def full_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
+    query_string = ''
+    found_entries = None
+
+    if ('q' in request.GET) and request.GET['q'].strip():
+
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['title', 'ingredients',])
+
+        found_entries = Recipe.objects.filter(entry_query)
     return render(
         request,
         'full_recipe.html',
         context={
             'recipe': recipe,
-            'ingredients': recipe.ingredients.replace('\n', '<br>')
-        }
+            'ingredients': recipe.ingredients.replace('\n', '<br>'),
+            'directions': recipe.directions.replace('\n', '<br>'),
+            'query_string': query_string,
+            'found_entries': found_entries},
+            context_instance=RequestContext(request)
     )
 
 

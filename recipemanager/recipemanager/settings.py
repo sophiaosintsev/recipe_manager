@@ -41,6 +41,7 @@ INSTALLED_APPS = (
 
     'recipes',
     'accounts',
+    'shoppinglist',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
 )
 
 TEMPLATE_LOADERS = (
@@ -97,7 +99,7 @@ DATABASES = {
     }
 }
 
-# LOGIN_REDIRECT_URL = '/homepage/'
+LOGIN_REDIRECT_URL = '/recipes/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -113,17 +115,18 @@ USE_L10N = True
 USE_TZ = True
 
 SITE_ID = 1
-
-
+print BASE_DIR
+MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
+MEDIA_URL = '/static/media/'
 # STATIC_ROOT = 'recipemanager/static/'
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+# MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'media').replace('\\','/')
 # STATICFILES_FINDERS = (
 #     'django.contrib.staticfiles.finders.FileSystemFinder',
 #     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

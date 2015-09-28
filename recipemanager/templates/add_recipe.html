@@ -2,13 +2,14 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<div class="wrap">
+<div class="allrecipewrap">
     <form method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend><h3>{{ button_name }} a Recipe</h3></legend>
+        <fieldset class="allrecipes">
+            <legend class="allrecipes"><h3>{{ button_name }} a Recipe</h3></legend>
             {% csrf_token %}
-            <input type="text" class="form" id="id_title" maxlength="50" name="title" placeholder="Recipe Title"/>
+            <input type="text" class="titleform" id="id_title" maxlength="50" name="title" placeholder="Recipe Title"/>
                 {{ form.title.errors }}
+            <br>
             <select id="id_category" name="category" class="category">
                 <option value="APP" selected="selected">Appetizer</option>
                 <option value="BRK">Breakfast &amp; Brunch</option>
@@ -23,21 +24,23 @@
                 <option value="DRK">Drink</option>
                 <option value="SDW">Sandwich</option>
             </select>
+            <br>
         <textarea cols="40" class="textarea" id="id_ingredients" name="ingredients" rows="100"
                   placeholder="Ingredients - 1 ingredient per line"></textarea>
 
         <textarea cols="40" class="textarea" id="id_directions" name="directions" rows="100"
                   placeholder="Directions - 1 set of directions per line"></textarea>
+            <br>
 {#                <input type="text" id="form" name="category" placeholder="Category"/>#}
 
 {#                <input type="text" id="form" name="ingredients" placeholder="Ingredients"/>#}
 
 {#                <input type="text" id="form" name="directions" placeholder="Directions"/>#}
 {#                <input type="password" id="form" name="photo" placeholder="Recipe Photo"/>#}
-           <input id="id_photo" class="links" name="photo" type="file">
+           <input id="id_photo" class="upload" name="photo" type="file">
             <p><img src="{{ recipe.photo.url }}" alt={{ recipe.title }}></p>
 
-        <input type="submit" id="button" value="{{ button_name }} Recipe">
+        <input type="submit" id="addbutton" value="{{ button_name }} Recipe">
         </fieldset>
     </form>
 </div>

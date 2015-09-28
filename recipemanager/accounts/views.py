@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.views import password_reset, password_reset_confirm
 
 from .forms import UserForm
 
@@ -46,7 +46,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('homepage'))
+                return HttpResponseRedirect(reverse('recipes'))
             else:
                 return HttpResponse('Your account is disabled')
         else:
@@ -62,3 +62,8 @@ def user_logout(request):
 
     return HttpResponseRedirect(reverse('recipes'))
 
+# def reset_confirm(request, uidb64=None, token=None):
+#     # Wrap the built-in reset confirmation view and pass to it all the captured parameters like uidb64, token
+#     # and template name, url to redirect after password reset is confirmed.
+#     return password_reset_confirm(request, template_name='password_reset_confirm.html',
+#         uidb64=uidb64, token=token, post_reset_redirect=reverse('password_reset_complete'))

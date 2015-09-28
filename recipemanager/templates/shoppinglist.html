@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="allrecipewrap">
-{#    <fieldset class="allrecipes">#}
+    <fieldset class="allrecipes">
         <legend class="allrecipes"><h3>Shopping List</h3></legend>
 
     <select id="aisleSelect" name="selectAisle" class="category">
@@ -32,9 +32,10 @@
         <option value="snacks">Snacks & Sweets</option>
         <option value="soup">Soup</option>
     </select>
+ <br>
 
 <form action="#">
-    <input class="form" id="itembox" type="text" placeholder="Enter an item here">
+    <input class="itembox" id="itembox" type="text" placeholder="Enter an item here">
     <button id="addItem">Add to List</button>
 </form>
 
@@ -208,15 +209,12 @@
     </div>
 </div>
 
-<section>
-
     <div class="links" id="controls">
         <p>*Single Click to mark complete</p>
         <p>**Double Click to remove from list</p>
         <button id="clearAllItems">Clear All Items</button>
     </div>
-</section>
-{##}
-{#    </fieldset>#}
+
+    </fieldset>
 </div>
 {% endblock %}

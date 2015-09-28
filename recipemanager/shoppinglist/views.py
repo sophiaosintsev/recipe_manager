@@ -45,4 +45,3 @@ def get_shoppinglist(request):
             return JsonResponse(
                 {"result": "List has been saved!"}
             )
-

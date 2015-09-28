@@ -20,7 +20,7 @@
     </header>
     <div id='menu'>
         <ul>
-            <li id="all" class="active"><a href="{% url 'recipes' %}">All Recipes</a></li>
+            <li id="all" class="active"><a  href="{% url 'recipes' %}">All Recipes</a></li>
             <li id="add"><a href="{% url 'add_recipe' %}">Add a New Recipe</a></li>
             <li id="shop"><a href="{% url 'shoppinglist' %}">Shopping List</a></li>
         {% if user.is_authenticated %}
@@ -35,9 +35,9 @@
             <input type="submit" id="searchbutton" value="Search">
         {% if found_entries %}
             {% for recipe in found_entries %}
-                {% if user.is_authenticated %}
+{#                {% if user.is_authenticated %}#}
                     <p class="links"><a href="{% url 'full_recipe' recipe.id %}">{{ recipe.title }}</a></p>
-                {% endif %}
+{#                {% endif %}#}
             {% endfor %}
         {% endif %}
         {% if query_string and not found_entries %}
@@ -53,11 +53,19 @@
 </div>
 
 <script>
-$('#menu ul li').click(function()
-{
-    $(this).siblings('li').removeClass('active');
+$('#menu').on('click', 'ul li', function(){
+    $('#menu ul li').removeClass('active');
     $(this).addClass('active');
 });
+
+{#    $('#menu li a').click(function(e) {#}
+{#    var $this = $(this);#}
+{#    if (!$this.hasClass('active')) {#}
+{#        $this.addClass('active');#}
+{#      }#}
+{#    e.preventDefault();#}
+
+
 </script>
 </body>
 </html>
