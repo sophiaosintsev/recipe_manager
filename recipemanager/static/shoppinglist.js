@@ -113,19 +113,8 @@ $(document).ready(function() {
     var xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function() {
            if (xhr.readyState == 4 && xhr.status == 200) {
-               //alert(xhr.responseText);
-               var temp = JSON.parse(xhr.responseText);
-
-
-
-
-
-                   //if (listItem != undefined) {
-                   //    $("#categories").prepend(listItem.parent());
-                   //    $(listItem.parent()).show();
-                   //}
-       //            //
-       //        });
+               alert(xhr.responseText);
+               //var temp = JSON.parse(xhr.responseText);
            };
        };
     xhr.open("GET", "/get-shoppinglist/", true);
