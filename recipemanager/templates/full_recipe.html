@@ -2,18 +2,17 @@
 {% block content %}
 <div class="allrecipewrap">
     <fieldset class="allrecipes">
-        <legend class="allrecipes"><h3>{{ recipe.title }}</h3></legend>
+        <legend class="fullrecipe"><h3>{{ recipe.title }}</h3></legend>
         <p class="photo">
             <img src="{{ recipe.photo.url }}" width="400" alt={{ recipe.title }}>
         </p>
-            {{ recipe.get_category_display }}
 
-    <h2>Ingredients</h2>
-            {{ ingredients | safe }}
+    <p class="ingTitle">Ingredients</p>
+            <p class="ingredients"> {{ ingredients | safe }}</p>
 
     <br>
-    <h2>Directions</h2>
-            {{ directions | safe }}
+    <p class="ingTitle">Directions</p>
+            <p class="ingredients">{{ directions | safe }}</p>
 {% if can_edit %}
     <form action="{% url 'delete_recipe' recipe.id %}" method="post">
         {% csrf_token %}

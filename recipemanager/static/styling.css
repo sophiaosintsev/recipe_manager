@@ -64,6 +64,7 @@ legend{
     font-weight: 900;
     font-family: 'Roboto', sans-serif;
     height: 100px;
+    font-size: 22px;
     margin-left: 100px;
     border-radius: 20px;
     background: #ce4c4a;
@@ -86,6 +87,7 @@ legend.allrecipes {
     height: 100px;
     margin-left: 300px;
     border-radius: 20px;
+    font-size: 25px;
     background: #ce4c4a;
     background: -moz-linear-gradient(-45deg, #9c000c, #d56462);
     background: -webkit-linear-gradient(-45deg, #9c000c, #d56462);
@@ -97,6 +99,27 @@ legend.allrecipes {
     zoom: 1;
     box-shadow: 0 5px 5px #141312;
     line-height: 20px;
+}
+
+legend.fullrecipe {
+    width: 200px;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+    height: 120px;
+    margin-left: 300px;
+    border-radius: 20px;
+    font-size: 20px;
+    background: #ce4c4a;
+    background: -moz-linear-gradient(-45deg, #9c000c, #d56462);
+    background: -webkit-linear-gradient(-45deg, #9c000c, #d56462);
+    background: -o-linear-gradient(-45deg, #9c000c, #d56462);
+    background: -ms-linear-gradient(-45deg, #9c000c, #d56462);
+    background: linear-gradient(-45deg, #9c000c, #d56462);
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    zoom: 1;
+    box-shadow: 0 5px 5px #141312;
+    line-height: 25px;
 }
 .titleform {
     width: 200px;
@@ -560,6 +583,33 @@ h4 {
     padding: 0px;
 }
 
+.photo {
+    max-width: 400px;
+    height: 300px;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-left: 200px;
+    -webkit-box-shadow: 1px 1px 4px #000000;
+    -moz-box-shadow: 1px 1px 4px #000000;
+    box-shadow: 1px 1px 4px #000000;
+}
+
+.ingredients {
+    /*margin-left: 100px;*/
+    /*margin-right: 100px;*/
+    margin-top: 15px;
+    color: #4a3c2b;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: white;
+    opacity: 0.60;
+    -webkit-box-shadow: 1px 1px 4px #000000;
+    -moz-box-shadow: 1px 1px 4px #000000;
+    box-shadow: 1px 1px 4px #000000;
+    text-align: center;
+}
+
 .itembox{
     margin-left: 190px;
     width: 200px;
@@ -572,6 +622,12 @@ h4 {
     -webkit-box-shadow: 1px 1px 4px #000000;
     -moz-box-shadow: 1px 1px 4px #000000;
     box-shadow: 1px 1px 4px #000000;
+}
+
+.ingTitle {
+    font-size: 25px;
+    color: white;
+    margin-left: 350px;
 }
 
 .itembox:focus{

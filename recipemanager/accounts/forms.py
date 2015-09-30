@@ -15,11 +15,22 @@ class UserForm(UserCreationForm):
             'last_name'
         )
 
-    def clean_password1(self):
-        pw = self.cleaned_data['password1']
-        if len(pw) < 7:
-            raise forms.ValidationError('Must be more than 7 characters long!')
+    def clean_password(self):
+        pw = self.cleaned_data['password']
+        if len(pw) < 6:
+            raise forms.ValidationError('Password must be at least 7 characters long')
+        elif not has_capital(pw):
+            raise forms.ValidationError('Password must have capital letter')
         return pw
+
+    def clean_password2(self):
+        pw = self.cleaned_data.get('password')
+        pw2 = self.cleaned_data['password2']
+        if not pw:
+            return pw2
+        if pw != pw2:
+            raise forms.ValidationError('Passwords do not match!')
+        return pw2
 
     def save(self):
         new_user = super(UserForm, self).save()
