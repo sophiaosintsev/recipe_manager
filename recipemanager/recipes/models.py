@@ -41,6 +41,7 @@ class Recipe(models.Model):
         default='images/default_256.png',
         null=False, blank=True,
     )
+    # user = models.ForeignKey(User, default=1)
 
     def __unicode__(self):
         return self.title

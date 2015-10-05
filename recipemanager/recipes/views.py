@@ -8,6 +8,7 @@ from django.http import *
 from django.contrib.auth import authenticate, login, logout
 from .forms import AddRecipeForm, SearchForm
 from .models import Recipe
+from django.contrib.auth.models import User
 
 
 def base(request):
@@ -68,10 +69,11 @@ def add_recipe(request):
 
 @login_required
 def edit_recipe(request, recipe_id):
-    can_edit = Recipe.user == request.user
     recipe_entry = get_object_or_404(Recipe, id=recipe_id)
+    owner = Recipe.User == request.user
 
     if request.method == 'POST':
+
         form = AddRecipeForm(request.POST, request.FILES, instance=recipe_entry)
         if form.is_valid():
             form.save()
@@ -91,6 +93,7 @@ def edit_recipe(request, recipe_id):
 
 @login_required
 def delete_recipe(request, recipe_id):
+    owner = Recipe.User == request.user
     recipe = get_object_or_404(Recipe, id=recipe_id)
     if request.method == 'POST':
         recipe.delete()

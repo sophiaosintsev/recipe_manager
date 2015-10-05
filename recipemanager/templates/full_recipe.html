@@ -13,11 +13,13 @@
     <br>
     <p class="ingTitle">Directions</p>
             <p class="ingredients">{{ directions | safe }}</p>
-{% if can_edit %}
+{% if owner %}
     <form action="{% url 'delete_recipe' recipe.id %}" method="post">
         {% csrf_token %}
     <input type="submit" id="button" value="Delete">
     </form>
+{% endif %}
+{% if owner %}
     <p class="links"><a href="{% url 'edit_recipe' recipe.id %}">Edit this recipe</a></p>
 {% endif %}
     <p class="links">
